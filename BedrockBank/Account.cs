@@ -11,6 +11,10 @@ namespace BedrockBank
     /// </summary>
     class Account
     {
+        #region variables
+        //shared memory for storing last account number
+        private static int lastAccountNumber=0;
+        #endregion
         #region properties
         /// <summary>
         /// Name of the account holder
@@ -19,11 +23,18 @@ namespace BedrockBank
         /// <summary>
         /// Account number  for the account
         /// </summary>
-        public int AccountNumber { get; set; }
+        public int AccountNumber { get; private set; }
         /// <summary>
         /// Account Balance for the account
         /// </summary>
-        public decimal Balance { get; set; }
+        public decimal Balance { get; private set; }
+        #endregion
+
+        #region constructor
+        public Account()
+        {
+            AccountNumber=++lastAccountNumber;
+        }
         #endregion
 
         #region Methods
@@ -38,8 +49,14 @@ namespace BedrockBank
             Balance += amount;
             return Balance;
         }
+    
         public decimal withdraw(decimal amount)
         {
+            
+            if (amount>Balance)
+            {
+                throw new ArgumentException("Insufficient Funds");
+            }
             Balance -= amount;
             return Balance;
         }
