@@ -9,7 +9,7 @@ namespace BedrockBank
     /// <summary>
     /// This class provides definition for a Bedrock Bank
     /// </summary>
-    class Account
+    public class Account
     {
         #region variables
         //shared memory for storing last account number
@@ -28,12 +28,23 @@ namespace BedrockBank
         /// Account Balance for the account
         /// </summary>
         public decimal Balance { get; private set; }
+        public int SSN { get; set; }
         #endregion
 
         #region constructor
+        //default constructor
         public Account()
         {
             AccountNumber=++lastAccountNumber;
+        }
+        public Account(string name) :this()
+        {
+            Name = name;
+        }
+        public Account(string name, decimal amount) :this(name)
+        {
+            //Name = name;
+            Deposit(amount);
         }
         #endregion
 
